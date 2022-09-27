@@ -201,16 +201,29 @@ function carregaListaDespesas(despesas = Array(), filtro = false){
         btn.innerHTML = '<i class="fas fa-times"></i>'
         btn.id = `id_despesa_${d.id}`
         btn.onclick = function(){
-            //remover a despesa
-            let id = this.id.replace('id_despesa_', '')
+            //exibir modal
+            document.getElementById('modal-titulo').innerHTML = 'Excluir despesa'
+            document.getElementById('modal-titulo-div').className = 'modal-header text-danger'
+            document.getElementById('modal-conteudo').innerHTML = 'Deseja excluir essa despesa?'
+            document.getElementById('modal-btn-sim').innerHTML = 'Sim'
+            document.getElementById('modal-btn-sim').onclick = function(){
+                //remover a despesa
+                let btnExcluir = btn.id.replace('id_despesa_', '')
 
-            bd.remover(id)
+                bd.remover(btnExcluir)
 
-            window.location.reload()
+                window.location.reload()
+
+            }
+            document.getElementById('modal-btn-nao').innerHTML = 'Cancelar'
+            document.getElementById('modal-btn-sim').className = 'btn btn-danger'
+            document.getElementById('modal-btn-nao').className = 'btn btn-secondary'
+
+            $('#consultaDespesa').modal('show')
+
         }
         linha.insertCell(4).append(btn)
 
-        console.log(d)
     })
 }
 
